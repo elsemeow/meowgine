@@ -16,18 +16,19 @@ class Background {
     let {
       img = new Image(),
       src = "",
-      sW = 0,
-      sH = 0,
-      pos = new SAT.Vector(),
-      dW = 0,
-      dH = 0,
+      sW  = 0,
+      sH  = 0,
+      pos = new SAT.V(),
+      dW  = 0,
+      dH  = 0,
     } = options;
-    this.sW = sW;
-    this.sH = sH;
-    this.pos = pos;
-    this.dW = dW;
-    this.dH = dH;
-    this.img = img;
+
+    this.sW      = sW;
+    this.sH      = sH;
+    this.pos     = pos;
+    this.dW      = dW;
+    this.dH      = dH;
+    this.img     = img;
     this.img.src = img.src || src;
   }
 
@@ -38,7 +39,7 @@ class Background {
    * @param {number} ease
    */
   pinTo(target, ease) {
-    MG.Utils.easeTo(this.pos, target, ease);
+    MG.Utils.easePos(this.pos, target, ease);
   }
 
   /**
@@ -52,10 +53,10 @@ class Background {
         0,
         this.sW,
         this.sH,
-        this.pos.x - MG.Utils.unitsToPx(this.dW / 2, surface),
-        this.pos.y - MG.Utils.unitsToPx(this.dH / 2, surface),
-        MG.Utils.unitsToPx(this.dW, surface),
-        MG.Utils.unitsToPx(this.dH, surface)
+        this.pos.x - MG.Utils.u2p(this.dW / 2, surface),
+        this.pos.y - MG.Utils.u2p(this.dH / 2, surface),
+        MG.Utils.u2p(this.dW, surface),
+        MG.Utils.u2p(this.dH, surface)
       );
     }
   }

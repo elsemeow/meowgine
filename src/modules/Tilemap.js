@@ -18,32 +18,33 @@ class Tilemap {
    */
   constructor(options = {}) {
     let {
-      img = new Image(),
-      src = "",
-      sR = 0,
-      sC = 0,
-      sW = 0,
-      sH = 0,
-      dx = 0,
-      dy = 0,
-      dW = 0,
-      dH = 0,
-      rows = 0,
-      cols = 0,
+      img     = new Image(),
+      src     = "",
+      sR      = 0,
+      sC      = 0,
+      sW      = 0,
+      sH      = 0,
+      dx      = 0,
+      dy      = 0,
+      dW      = 0,
+      dH      = 0,
+      rows    = 0,
+      cols    = 0,
       tilemap = [],
     } = options;
-    this.sR = sR;
-    this.sC = sC;
-    this.sW = sW;
-    this.sH = sH;
-    this.dx = dx;
-    this.dy = dy;
-    this.dW = dW;
-    this.dH = dH;
-    this.rows = rows;
-    this.cols = cols;
+
+    this.sR      = sR;
+    this.sC      = sC;
+    this.sW      = sW;
+    this.sH      = sH;
+    this.dx      = dx;
+    this.dy      = dy;
+    this.dW      = dW;
+    this.dH      = dH;
+    this.rows    = rows;
+    this.cols    = cols;
     this.tilemap = tilemap;
-    this.img = img;
+    this.img     = img;
     this.img.src = img.src || src;
   }
 
@@ -61,12 +62,10 @@ class Tilemap {
             Math.floor(this.tilemap[i] / this.sR) * this.sH,
             this.sW,
             this.sH,
-            MG.Utils.unitsToPx(this.dx, surface) +
-              col * MG.Utils.unitsToPx(this.dW, surface),
-            MG.Utils.unitsToPx(this.dy, surface) +
-              row * MG.Utils.unitsToPx(this.dH, surface),
-            MG.Utils.unitsToPx(this.dW, surface),
-            MG.Utils.unitsToPx(this.dH, surface)
+            MG.Utils.u2p(this.dx, surface) + col * MG.Utils.u2p(this.dW, surface),
+            MG.Utils.u2p(this.dy, surface) + row * MG.Utils.u2p(this.dH, surface),
+            MG.Utils.u2p(this.dW, surface),
+            MG.Utils.u2p(this.dH, surface)
           );
           i++;
         }

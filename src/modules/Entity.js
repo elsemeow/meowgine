@@ -1,60 +1,44 @@
 class Entity {
   /**
    * @param {string} origin Possible values:
-   *                           "top left",    "top center",    "top right",
-   *                        "middle left", "middle center", "middle right",
-   *                        "bottom left", "bottom center", "bottom right".
+   *                        `tl`: top left,    `tc`: top center,    `tr`: top right,
+   *                        `ml`: middle left, `mc`: middle center, `mr`: middle right,
+   *                        `bl`: bottom left, `bc`: bottom center, `br`: bottom right.
    * @param {SAT.Circle|SAT.Polygon|SAT.Polygon} collision
    * @param {Particle} particle
    * @param {Sprite} sprite
    * @param {Object} vars
    */
   constructor(origin, collision, particle, sprite, vars = {}) {
-    this.origin = origin;
+    this.origin    = origin;
     this.collision = collision;
-    this.particle = particle;
-    this.sprite = sprite;
-    this.vars = vars;
+    this.particle  = particle;
+    this.sprite    = sprite;
+    this.vars      = vars;
 
     this.#initOrigin();
   }
 
   get type() {
     // Detect circle.
-    if (typeof this.collision.r !== "undefined") {
-      return "circle";
-    }
+    if (typeof this.collision.r !== "undefined") return "circle";
 
     // Detect polygon.
-    if (typeof this.collision.calcPoints !== "undefined") {
-      return "polygon";
-    }
+    if (typeof this.collision.calcPoints !== "undefined") return "polygon";
 
     // Detect box.
-    if (typeof this.collision.w !== "undefined") {
-      return "box";
-    }
+    if (typeof this.collision.w !== "undefined") return "box";
   }
 
   get #collisionPath() {
-    if (this.type === "circle") {
+    if (this.type === "circle")
       return MG.Utils.circleToPath(this.collision.pos, this.collision.r);
-    }
 
-    if (this.type === "polygon") {
-      return MG.Utils.polygonToPath(
-        this.collision.pos,
-        this.collision.calcPoints
-      );
-    }
+    if (this.type === "polygon")
+      return MG.Utils.polygonToPath(this.collision.pos, this.collision.calcPoints);
 
-    if (this.type === "box") {
-      return MG.Utils.boxToPath(
-        this.collision.pos,
-        this.collision.w,
-        this.collision.h
-      );
-    }
+    if (this.type === "box")
+      return MG.Utils.boxToPath(this.collision.pos, this.collision.w, this.collision.h);
   }
 
   #initOrigin() {
@@ -69,48 +53,48 @@ class Entity {
 
       switch (this.origin) {
         default:
-        case "top left":
-          this.collision.setOffset(new SAT.Vector(0, 0));
+        case "tl":
+          this.collision.setOffset(new SAT.V(0, 0));
           this.sprite.dxS += -this.sprite.dW / 2 + box.w / 2;
           this.sprite.dyS += -this.sprite.dH / 2 + box.h / 2;
           break;
-        case "top center":
-          this.collision.setOffset(new SAT.Vector(-center.x, 0));
+        case "tc":
+          this.collision.setOffset(new SAT.V(-center.x, 0));
           this.sprite.dxS += -this.sprite.dW / 2;
           this.sprite.dyS += -this.sprite.dH / 2 + box.h / 2;
           break;
-        case "top right":
-          this.collision.setOffset(new SAT.Vector(-box.w, 0));
+        case "tr":
+          this.collision.setOffset(new SAT.V(-box.w, 0));
           this.sprite.dxS += -this.sprite.dW / 2 - box.w / 2;
           this.sprite.dyS += -this.sprite.dH / 2 + box.h / 2;
           break;
-        case "middle left":
-          this.collision.setOffset(new SAT.Vector(0, -center.y));
+        case "ml":
+          this.collision.setOffset(new SAT.V(0, -center.y));
           this.sprite.dxS += -this.sprite.dW / 2 + box.w / 2;
           this.sprite.dyS += -this.sprite.dH / 2;
           break;
-        case "middle center":
-          this.collision.setOffset(new SAT.Vector(-center.x, -center.y));
+        case "mc":
+          this.collision.setOffset(new SAT.V(-center.x, -center.y));
           this.sprite.dxS += -this.sprite.dW / 2;
           this.sprite.dyS += -this.sprite.dH / 2;
           break;
-        case "middle right":
-          this.collision.setOffset(new SAT.Vector(-box.w, -center.y));
+        case "mr":
+          this.collision.setOffset(new SAT.V(-box.w, -center.y));
           this.sprite.dxS += -this.sprite.dW / 2 - box.w / 2;
           this.sprite.dyS += -this.sprite.dH / 2;
           break;
-        case "bottom left":
-          this.collision.setOffset(new SAT.Vector(0, -box.h));
+        case "bl":
+          this.collision.setOffset(new SAT.V(0, -box.h));
           this.sprite.dxS += -this.sprite.dW / 2 + box.w / 2;
           this.sprite.dyS += -this.sprite.dH / 2 - box.h / 2;
           break;
-        case "bottom center":
-          this.collision.setOffset(new SAT.Vector(-center.x, -box.h));
+        case "bc":
+          this.collision.setOffset(new SAT.V(-center.x, -box.h));
           this.sprite.dxS += -this.sprite.dW / 2;
           this.sprite.dyS += -this.sprite.dH / 2 - box.h / 2;
           break;
-        case "bottom right":
-          this.collision.setOffset(new SAT.Vector(-box.w, -box.h));
+        case "br":
+          this.collision.setOffset(new SAT.V(-box.w, -box.h));
           this.sprite.dxS += -this.sprite.dW / 2 - box.w / 2;
           this.sprite.dyS += -this.sprite.dH / 2 - box.h / 2;
           break;
@@ -126,31 +110,31 @@ class Entity {
   /**
    * @param {Surface} surface
    */
-  beforeResize(surface) {
-    this.collision.pos = new SAT.Vector(
-      MG.Utils.pxToUnits(this.collision.pos.x, surface),
-      MG.Utils.pxToUnits(this.collision.pos.y, surface)
+  p2u(surface) {
+    this.collision.pos = new SAT.V(
+      MG.Utils.p2u(this.collision.pos.x, surface),
+      MG.Utils.p2u(this.collision.pos.y, surface)
     );
 
     if (this.type === "circle") {
-      this.collision.r = MG.Utils.pxToUnits(this.collision.r, surface);
+      this.collision.r = MG.Utils.p2u(this.collision.r, surface);
     }
 
     if (this.type === "polygon") {
       let points = [];
 
       this.collision.setOffset(
-        new SAT.Vector(
-          MG.Utils.pxToUnits(this.collision.offset.x, surface),
-          MG.Utils.pxToUnits(this.collision.offset.y, surface)
+        new SAT.V(
+          MG.Utils.p2u(this.collision.offset.x, surface),
+          MG.Utils.p2u(this.collision.offset.y, surface)
         )
       );
 
       for (let i = 0; i < this.collision.points.length; i++) {
         points.push(
-          new SAT.Vector(
-            MG.Utils.pxToUnits(this.collision.points[i].x, surface),
-            MG.Utils.pxToUnits(this.collision.points[i].y, surface)
+          new SAT.V(
+            MG.Utils.p2u(this.collision.points[i].x, surface),
+            MG.Utils.p2u(this.collision.points[i].y, surface)
           )
         );
       }
@@ -158,39 +142,39 @@ class Entity {
     }
 
     if (this.type === "box") {
-      this.collision.w = MG.Utils.pxToUnits(this.collision.w, surface);
-      this.collision.h = MG.Utils.pxToUnits(this.collision.h, surface);
+      this.collision.w = MG.Utils.p2u(this.collision.w, surface);
+      this.collision.h = MG.Utils.p2u(this.collision.h, surface);
     }
   }
 
   /**
    * @param {Surface} surface
    */
-  afterResize(surface) {
-    this.collision.pos = new SAT.Vector(
-      MG.Utils.unitsToPx(this.collision.pos.x, surface),
-      MG.Utils.unitsToPx(this.collision.pos.y, surface)
+  u2p(surface) {
+    this.collision.pos = new SAT.V(
+      MG.Utils.u2p(this.collision.pos.x, surface),
+      MG.Utils.u2p(this.collision.pos.y, surface)
     );
 
     if (this.type === "circle") {
-      this.collision.r = MG.Utils.unitsToPx(this.collision.r, surface);
+      this.collision.r = MG.Utils.u2p(this.collision.r, surface);
     }
 
     if (this.type === "polygon") {
       let points = [];
 
       this.collision.setOffset(
-        new SAT.Vector(
-          MG.Utils.unitsToPx(this.collision.offset.x, surface),
-          MG.Utils.unitsToPx(this.collision.offset.y, surface)
+        new SAT.V(
+          MG.Utils.u2p(this.collision.offset.x, surface),
+          MG.Utils.u2p(this.collision.offset.y, surface)
         )
       );
 
       for (let i = 0; i < this.collision.points.length; i++) {
         points.push(
-          new SAT.Vector(
-            MG.Utils.unitsToPx(this.collision.points[i].x, surface),
-            MG.Utils.unitsToPx(this.collision.points[i].y, surface)
+          new SAT.V(
+            MG.Utils.u2p(this.collision.points[i].x, surface),
+            MG.Utils.u2p(this.collision.points[i].y, surface)
           )
         );
       }
@@ -198,8 +182,8 @@ class Entity {
     }
 
     if (this.type === "box") {
-      this.collision.w = MG.Utils.unitsToPx(this.collision.w, surface);
-      this.collision.h = MG.Utils.unitsToPx(this.collision.h, surface);
+      this.collision.w = MG.Utils.u2p(this.collision.w, surface);
+      this.collision.h = MG.Utils.u2p(this.collision.h, surface);
     }
   }
 
@@ -212,7 +196,7 @@ class Entity {
   }
 
   /** Synchronize angle of collision with direction of particle.  */
-  syncAngle() {
+  syncDir() {
     e.collision.setAngle(this.particle.direction);
   }
 
@@ -230,19 +214,19 @@ class Entity {
    * @param {string} [origin.fillColor]
    * @param {number} [origin.r]
    */
-  debugRender(surface, collision = {}, origin = {}) {
+  render(surface, collision = {}, origin = {}) {
     const c = {
-      hasFill: collision.hasFill || false,
-      hasBorder: collision.hasBorder || false,
+      hasFill:     collision.hasFill || false,
+      hasBorder:   collision.hasBorder || false,
       borderWidth: collision.borderWidth || 2,
       borderColor: collision.borderColor || "rgb(150, 206, 180)",
-      fillColor: collision.fillColor || "rgba(150, 206, 180, 0.78)",
+      fillColor:   collision.fillColor || "rgba(150, 206, 180, 0.78)",
     };
 
     const o = {
-      hasFill: origin.hasFill || false,
+      hasFill:   origin.hasFill || false,
       fillColor: origin.fillColor || "rgba(255, 111, 105, 0.78)",
-      r: origin.r || 2,
+      r:         origin.r || 2,
     };
 
     let p = {};

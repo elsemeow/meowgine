@@ -7,10 +7,7 @@ class Camera {
    * @param {Surface} surface
    */
   open(surface) {
-    surface.ctx.translate(
-      surface.w / 2 - this.pos.x,
-      surface.h / 2 - this.pos.y
-    );
+    surface.ctx.translate(surface.w / 2 - this.pos.x, surface.h / 2 - this.pos.y);
   }
 
   /**
@@ -27,7 +24,7 @@ class Camera {
    * @param {number} ease
    */
   pinTo(target, ease) {
-    MG.Utils.easeTo(this.pos, target, ease);
+    MG.Utils.easePos(this.pos, target, ease);
   }
 
   /**
@@ -40,10 +37,10 @@ class Camera {
    */
   debugRender(surface, center = {}) {
     const c = {
-      hasBorder: center.hasBorder || false,
+      hasBorder:   center.hasBorder || false,
       borderWidth: center.borderWidth || 2,
       borderColor: center.borderColor || "rgb(255, 204, 92, 0.78)",
-      r: center.r || 10,
+      r:           center.r || 10,
     };
 
     if (c.hasBorder) {

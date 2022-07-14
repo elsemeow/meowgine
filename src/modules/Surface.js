@@ -12,10 +12,11 @@ class Surface {
    * @param {string} [units] Possible values: "vmin", "vmax".
    */
   constructor(selector, viewWport, viewHport, units = "vmin") {
-    this.selector = selector;
+    this.selector  = selector;
     this.viewWport = viewWport;
     this.viewHport = viewHport;
-    this.units = units;
+    this.units     = units;
+
     this.#init();
   }
 
@@ -89,44 +90,32 @@ class Surface {
   }
 
   /**
-   * @param {string} point Possible values:
-   *                           "top left",    "top center",    "top right",
-   *                        "middle left", "middle center", "middle right",
-   *                        "bottom left", "bottom center", "bottom right".
+   * @param {string} val Possible values:
+   *                     `tl`: top left,    `tc`: top center,    `tr`: top right,
+   *                     `ml`: middle left, `mc`: middle center, `mr`: middle right,
+   *                     `bl`: bottom left, `bc`: bottom center, `br`: bottom right.
    */
-  posOf(point) {
-    switch (point) {
+  pos(val) {
+    switch (val) {
       default:
-      case "top left":
-        return new SAT.Vector();
-      case "top center":
-        return new SAT.Vector(MG.Utils.pxToUnits(this.w / 2, this), 0);
-      case "top right":
-        return new SAT.Vector(MG.Utils.pxToUnits(this.w / 2, this), 0);
-      case "middle left":
-        return new SAT.Vector(0, MG.Utils.pxToUnits(this.h / 2, this));
-      case "middle center":
-        return new SAT.Vector(
-          MG.Utils.pxToUnits(this.w / 2, this),
-          MG.Utils.pxToUnits(this.h / 2, this)
-        );
-      case "middle right":
-        return new SAT.Vector(
-          MG.Utils.pxToUnits(this.w, this),
-          MG.Utils.pxToUnits(this.h / 2, this)
-        );
-      case "bottom left":
-        return new SAT.Vector(0, MG.Utils.pxToUnits(this.h, this));
-      case "bottom center":
-        return new SAT.Vector(
-          MG.Utils.pxToUnits(this.w / 2, this),
-          MG.Utils.pxToUnits(this.h, this)
-        );
-      case "bottom right":
-        return new SAT.Vector(
-          MG.Utils.pxToUnits(this.w, this),
-          MG.Utils.pxToUnits(this.h, this)
-        );
+      case "tl":
+        return new SAT.V();
+      case "tc":
+        return new SAT.V(MG.Utils.p2u(this.w / 2, this), 0);
+      case "tr":
+        return new SAT.V(MG.Utils.p2u(this.w / 2, this), 0);
+      case "ml":
+        return new SAT.V(0, MG.Utils.p2u(this.h / 2, this));
+      case "mc":
+        return new SAT.V(MG.Utils.p2u(this.w / 2, this), MG.Utils.p2u(this.h / 2, this));
+      case "mr":
+        return new SAT.V(MG.Utils.p2u(this.w, this), MG.Utils.p2u(this.h / 2, this));
+      case "bl":
+        return new SAT.V(0, MG.Utils.p2u(this.h, this));
+      case "bc":
+        return new SAT.V(MG.Utils.p2u(this.w / 2, this), MG.Utils.p2u(this.h, this));
+      case "br":
+        return new SAT.V(MG.Utils.p2u(this.w, this), MG.Utils.p2u(this.h, this));
     }
   }
 }

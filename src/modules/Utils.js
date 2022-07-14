@@ -59,15 +59,20 @@ class Utils {
    */
   static weightedRandom(array) {
     let total = 0;
+
     for (let i = 0; i < array.length; i++) {
       total += array[i].chance;
     }
+
     let rand = Math.random() * total;
+
     for (let i = 0; i < array.length; i++) {
       const events = array[i];
+
       if (rand < events.chance) {
         return events.value;
       }
+
       rand -= events.chance;
     }
   }
@@ -79,6 +84,7 @@ class Utils {
     for (let i = array.length - 1; i > 0; i--) {
       const rand = Math.floor(Math.random() * i);
       const temp = array[i];
+
       array[i] = array[rand];
       array[rand] = temp;
     }
@@ -126,11 +132,12 @@ class Utils {
   }
 
   /**
+   * Units to pixels.
    * @param {number} value
    * @param {string} units Possible values: "vw", "vh", "vmin", "vmax".
    * @param {MG.Surface} surface
    */
-  static unitsToPx(value, surface) {
+  static u2p(value, surface) {
     switch (surface.units) {
       default:
       case "vmin":
@@ -141,11 +148,12 @@ class Utils {
   }
 
   /**
+   * Pixels to units.
    * @param {number} value
    * @param {string} units Possible values: "vw", "vh", "vmin", "vmax".
    * @param {MG.Surface} surface
    */
-  static pxToUnits(value, surface) {
+  static p2u(value, surface) {
     switch (surface.units) {
       default:
       case "vmin":
@@ -156,42 +164,16 @@ class Utils {
   }
 
   /**
-   * @param {Object} pos
-   * @param {number} pos.x
-   * @param {number} pos.y
+   * @param {SAT.Vector} pos
    * @param {number} r
    */
   static circleToPath(pos, r) {
-    return (
-      "M " +
-      pos.x +
-      " " +
-      pos.y +
-      " m -" +
-      r +
-      ", 0 a " +
-      r +
-      "," +
-      r +
-      " 0 1,0 " +
-      r * 2 +
-      ",0 a " +
-      r +
-      "," +
-      r +
-      " 0 1,0 -" +
-      r * 2 +
-      ",0"
-    );
+    return ("M " + pos.x + " " + pos.y + " m -" + r + ", 0 a " + r + "," + r + " 0 1,0 " + r * 2 + ",0 a " + r + "," + r + " 0 1,0 -" + r * 2 + ",0");
   }
 
   /**
-   * @param {Object} pos
-   * @param {number} pos.x
-   * @param {number} pos.y
-   * @param {Object[]} points
-   * @param {number} points.x
-   * @param {number} points.y
+   * @param {SAT.Vector} pos
+   * @param {SAT.Vector[]} points
    */
   static polygonToPath(pos, points) {
     let result = "M" + pos.x + " " + pos.y;
@@ -210,31 +192,38 @@ class Utils {
   }
 
   /**
-   * @param {Object} pos
-   * @param {number} pos.x
-   * @param {number} pos.y
+   * @param {SAT.Vector} pos
    * @param {number} w
    * @param {number} h
    */
   static boxToPath(pos, w, h) {
-    return (
-      "M" + pos.x + " " + pos.y + " h " + w + " v " + h + " h -" + w + " Z"
-    );
+    return ("M" + pos.x + " " + pos.y + " h " + w + " v " + h + " h -" + w + " Z");
   }
 
   // Animations
   // -------------------------------------------------------------
 
   /**
-   * @param {Object} position
-   * @param {number} position.x
-   * @param {number} position.y
+   * @param {Object} val
    * @param {Object} target
-   * @param {number} target.x
-   * @param {number} target.y
    * @param {number} ease
    */
-  static easeTo(position, target, ease) {
+  static ease(val, target, ease) {
+    const dv = target - val;
+
+    val += dv * ease;
+
+    if (Math.abs(dv) < 0.1) {
+      val = target;
+    }
+  }
+
+  /**
+   * @param {SAT.Vector} position
+   * @param {SAT.Vector} target
+   * @param {number} ease
+   */
+  static easePos(position, target, ease) {
     const dx = target.x - position.x;
     const dy = target.y - position.y;
 

@@ -29,31 +29,32 @@ class Sprite {
    */
   constructor(options = {}) {
     let {
-      img = new Image(),
-      src = "",
-      ix = 0,
-      iy = 0,
-      sW = 0,
-      sH = 0,
-      dxS = 0,
-      dyS = 0,
-      dW = 0,
-      dH = 0,
+      img    = new Image(),
+      src    = "",
+      ix     = 0,
+      iy     = 0,
+      sW     = 0,
+      sH     = 0,
+      dxS    = 0,
+      dyS    = 0,
+      dW     = 0,
+      dH     = 0,
       frames = 0,
-      speed = 30,
+      speed  = 30,
     } = options;
-    this.ix = ix;
-    this.iy = iy;
-    this.sW = sW;
-    this.sH = sH;
-    this.dxS = dxS;
-    this.dyS = dyS;
-    this.dW = dW;
-    this.dH = dH;
-    this.frames = frames;
-    this.speed = speed;
-    this.ixLast = ix;
-    this.img = img;
+
+    this.ix      = ix;
+    this.iy      = iy;
+    this.sW      = sW;
+    this.sH      = sH;
+    this.dxS     = dxS;
+    this.dyS     = dyS;
+    this.dW      = dW;
+    this.dH      = dH;
+    this.frames  = frames;
+    this.speed   = speed;
+    this.ixLast  = ix;
+    this.img     = img;
     this.img.src = img.src || src;
   }
 
@@ -65,13 +66,14 @@ class Sprite {
    */
   render(collision, surface, angle = 0) {
     if (this.img.complete && this.img.naturalHeight !== 0) {
+
       // Stripe animation.
       if (this.speed > 0) {
         if (Date.now() - this.#lifetime >= 1000 / this.speed) {
           this.ixLast += 1;
-          if (this.ixLast >= this.ix + this.frames) {
-            this.ixLast = this.ix;
-          }
+
+          if (this.ixLast >= this.ix + this.frames) this.ixLast = this.ix;
+
           this.#lifetime = Date.now();
         }
       }
@@ -88,10 +90,10 @@ class Sprite {
         this.iy * this.sH,
         this.sW,
         this.sH,
-        collision.pos.x + MG.Utils.unitsToPx(this.dxS, surface),
-        collision.pos.y + MG.Utils.unitsToPx(this.dyS, surface),
-        MG.Utils.unitsToPx(this.dW, surface),
-        MG.Utils.unitsToPx(this.dH, surface)
+        collision.pos.x + MG.Utils.u2p(this.dxS, surface),
+        collision.pos.y + MG.Utils.u2p(this.dyS, surface),
+        MG.Utils.u2p(this.dW, surface),
+        MG.Utils.u2p(this.dH, surface)
       );
 
       surface.ctx.restore();

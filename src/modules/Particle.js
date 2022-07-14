@@ -11,16 +11,18 @@ class Particle {
    * @param {number} [options.friction]
    */
   constructor(speed = 0, direction = 0, options = {}) {
-    this.x = 0;
-    this.y = 0;
+    this.x  = 0;
+    this.y  = 0;
     this.vx = Math.cos(direction) * speed;
     this.vy = Math.sin(direction) * speed;
+
     let { gravity = 0, mass = 1, bounce = -1, friction = 1 } = options;
-    this.gravity = gravity;
-    this.mass = mass;
-    this.bounce = bounce;
-    this.friction = friction;
-    this.springs = [];
+
+    this.gravity      = gravity;
+    this.mass         = mass;
+    this.bounce       = bounce;
+    this.friction     = friction;
+    this.springs      = [];
     this.gravitations = [];
   }
 
@@ -57,17 +59,15 @@ class Particle {
    * @returns Updated particle coordinates in px, specified as a SAT.Vector.
    */
   update(pos, surface) {
-    this.x = MG.Utils.pxToUnits(pos.x, surface);
-    this.y = MG.Utils.pxToUnits(pos.y, surface);
+    this.x = MG.Utils.p2u(pos.x, surface);
+    this.y = MG.Utils.p2u(pos.y, surface);
     this.#handleSprings();
     this.#handleGravitations();
     this.vx *= this.friction;
     this.vy *= this.friction;
     this.vy += this.gravity;
-    this.#result = new SAT.Vector(
-      MG.Utils.unitsToPx(this.x + this.vx, surface),
-      MG.Utils.unitsToPx(this.y + this.vy, surface)
-    );
+    this.#result = new SAT.V(MG.Utils.u2p(this.x + this.vx, surface), MG.Utils.u2p(this.y + this.vy, surface));
+
     return this.#result;
   }
 
@@ -99,6 +99,7 @@ class Particle {
   distanceTo(p) {
     const dx = p.x - this.x;
     const dy = p.y - this.y;
+
     return Math.sqrt(dx ** 2 + dy ** 2);
   }
 
@@ -129,6 +130,7 @@ class Particle {
     for (let i = this.springs.length - 1; i >= 0; i--) {
       if (p === this.springs[i].p) {
         this.springs.splice(i, 1);
+
         return;
       }
     }
@@ -138,6 +140,7 @@ class Particle {
   #handleSprings() {
     for (let i = this.springs.length - 1; i >= 0; i--) {
       const spring = this.springs[i];
+
       this.#springTo(spring.p, spring.k, spring.length);
     }
   }
@@ -155,6 +158,7 @@ class Particle {
     const dy = p.y - this.y;
     const distance = Math.sqrt(dx ** 2 + dy ** 2);
     const springForce = (distance - length || 0) * k;
+
     this.vx += (dx / distance) * springForce;
     this.vy += (dy / distance) * springForce;
   }
@@ -176,6 +180,7 @@ class Particle {
     for (let i = this.gravitations.length - 1; i >= 0; i--) {
       if (particle === this.gravitations[i]) {
         this.gravitations.splice(i, 1);
+
         return;
       }
     }
@@ -200,6 +205,7 @@ class Particle {
     const force = particle.mass / distSQ;
     const ax = (dx / dist) * force;
     const ay = (dy / dist) * force;
+
     this.vx += ax;
     this.vy += ay;
   }
