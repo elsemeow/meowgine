@@ -89,8 +89,8 @@ class Sprite {
         this.iy * this.sH,
         this.sW,
         this.sH,
-        collision.pos.x + this.dxS, surface,
-        collision.pos.y + this.dyS, surface,
+        collision.pos.x + this.dxS,
+        collision.pos.y + this.dyS,
         this.dW,
         this.dH
       );

@@ -41,7 +41,7 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
 
   let surface = {};
   // `room[0]` - layer 0 for room.
-  let room = [{ background: {}, entities: [] }];
+  let room = [{ background: [] entity: [] }];
 
   //--------------------------------------------------------------------------
   // Initialization
@@ -63,7 +63,7 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
     // Layer 0
     //--------------------------------------------------------------------------
 
-    room[0].background = new MG.Background({
+    room[0].background[0] = new MG.Background({
       src: `${IMAGE_PATH}`,
       sW: 1920,
       sH: 1200,
@@ -77,9 +77,9 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
     //
     // Specified in the surface instance as the last optional parameter.
     //
-    room[0].background.u2p(surface);
+    room[0].background[0].u2p(surface);
 
-    room[0].entities[0] = new MG.Entity(
+    room[0].entity[0] = new MG.Entity(
       "mc",
       new SAT.Circle(surface.pos("mc"), 5),
       new MG.Particle(),
@@ -87,7 +87,7 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
       { name: "player" }
     );
 
-    room[0].entities[0].u2p(surface);
+    room[0].entity[0].u2p(surface);
 
     // Events
     //--------------------------------------------------------------------------
@@ -100,22 +100,22 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
         // Convert pixels back to units for recalculation
         // after resizing.
         //
-        room[0].background.p2u(surface);
-        room[0].entities[0].p2u(surface);
+        room[0].background[0].p2u(surface);
+        room[0].entity[0].p2u(surface);
 
         // 2. Resize.
         surface.resize();
 
         // 3. After resize.
-        room[0].background.u2p(surface);
-        room[0].entities[0].u2p(surface);
+        room[0].background[0].u2p(surface);
+        room[0].entity[0].u2p(surface);
       }, 500);
     };
 
     surface.el.addEventListener("mousemove", (e) => {
       // Smootly move entity position to mouse cursor position.
       MG.Utils.easePos(
-        room[0].entities[0].collision.pos,
+        room[0].entity[0].collision.pos,
         new SAT.V(e.offsetX, e.offsetY),
         0.25
       );
@@ -137,10 +137,10 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
     //--------------------------------------------------------------------------
 
     // Render background.
-    room[0].background.render(surface);
+    room[0].background[0].render(surface);
 
     // Render collision of entity.
-    room[0].entities[0].render(surface, { hasFill: true });
+    room[0].entity[0].render(surface, { hasFill: true });
 
     // Callback game loop.
     window.requestAnimationFrame(loop);
