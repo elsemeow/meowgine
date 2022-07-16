@@ -1,9 +1,9 @@
 class Entity {
   /**
-   * @param {string} origin Possible values:
-   *                        `tl`: top left,    `tc`: top center,    `tr`: top right,
-   *                        `ml`: middle left, `mc`: middle center, `mr`: middle right,
-   *                        `bl`: bottom left, `bc`: bottom center, `br`: bottom right.
+   * @param {string} origin - Possible values:
+   *                          `tl`: top left,    `tc`: top center,    `tr`: top right,
+   *                          `ml`: middle left, `mc`: middle center, `mr`: middle right,
+   *                          `bl`: bottom left, `bc`: bottom center, `br`: bottom right.
    * @param {SAT.Circle|SAT.Polygon|SAT.Polygon} collision
    * @param {Particle} particle
    * @param {Sprite} sprite
@@ -110,51 +110,16 @@ class Entity {
   /**
    * @param {Surface} surface
    */
-  p2u(surface) {
-    this.collision.pos = new SAT.V(
-      MG.Utils.p2u(this.collision.pos.x, surface),
-      MG.Utils.p2u(this.collision.pos.y, surface)
-    );
-
-    if (this.type === "circle") {
-      this.collision.r = MG.Utils.p2u(this.collision.r, surface);
-    }
-
-    if (this.type === "polygon") {
-      let points = [];
-
-      this.collision.setOffset(
-        new SAT.V(
-          MG.Utils.p2u(this.collision.offset.x, surface),
-          MG.Utils.p2u(this.collision.offset.y, surface)
-        )
-      );
-
-      for (let i = 0; i < this.collision.points.length; i++) {
-        points.push(
-          new SAT.V(
-            MG.Utils.p2u(this.collision.points[i].x, surface),
-            MG.Utils.p2u(this.collision.points[i].y, surface)
-          )
-        );
-      }
-      this.collision.setPoints(points);
-    }
-
-    if (this.type === "box") {
-      this.collision.w = MG.Utils.p2u(this.collision.w, surface);
-      this.collision.h = MG.Utils.p2u(this.collision.h, surface);
-    }
-  }
-
-  /**
-   * @param {Surface} surface
-   */
   u2p(surface) {
     this.collision.pos = new SAT.V(
       MG.Utils.u2p(this.collision.pos.x, surface),
       MG.Utils.u2p(this.collision.pos.y, surface)
     );
+
+    this.sprite.dxS = MG.Utils.u2p(this.sprite.dxS, surface);
+    this.sprite.dyS = MG.Utils.u2p(this.sprite.dyS, surface);
+    this.sprite.dW  = MG.Utils.u2p(this.sprite.dW, surface);
+    this.sprite.dH  = MG.Utils.u2p(this.sprite.dH, surface);
 
     if (this.type === "circle") {
       this.collision.r = MG.Utils.u2p(this.collision.r, surface);
@@ -188,6 +153,51 @@ class Entity {
   }
 
   /**
+   * @param {Surface} surface
+   */
+  p2u(surface) {
+    this.collision.pos = new SAT.V(
+      MG.Utils.p2u(this.collision.pos.x, surface),
+      MG.Utils.p2u(this.collision.pos.y, surface)
+    );
+
+    this.sprite.dxS = MG.Utils.p2u(this.sprite.dxS, surface);
+    this.sprite.dyS = MG.Utils.p2u(this.sprite.dyS, surface);
+    this.sprite.dW  = MG.Utils.p2u(this.sprite.dW, surface);
+    this.sprite.dH  = MG.Utils.p2u(this.sprite.dH, surface);
+
+    if (this.type === "circle") {
+      this.collision.r = MG.Utils.p2u(this.collision.r, surface);
+    }
+
+    if (this.type === "polygon") {
+      let points = [];
+
+      this.collision.setOffset(
+        new SAT.V(
+          MG.Utils.p2u(this.collision.offset.x, surface),
+          MG.Utils.p2u(this.collision.offset.y, surface)
+        )
+      );
+
+      for (let i = 0; i < this.collision.points.length; i++) {
+        points.push(
+          new SAT.V(
+            MG.Utils.p2u(this.collision.points[i].x, surface),
+            MG.Utils.p2u(this.collision.points[i].y, surface)
+          )
+        );
+      }
+      this.collision.setPoints(points);
+    }
+
+    if (this.type === "box") {
+      this.collision.w = MG.Utils.p2u(this.collision.w, surface);
+      this.collision.h = MG.Utils.p2u(this.collision.h, surface);
+    }
+  }
+
+  /**
    * Synchronize position of collision with position of particle.
    * @param {Surface} surface
    */
@@ -195,7 +205,7 @@ class Entity {
     this.collision.pos = this.particle.update(this.collision.pos, surface);
   }
 
-  /** Synchronize angle of collision with direction of particle.  */
+  /** Synchronize angle of collision with direction of particle. */
   syncDir() {
     e.collision.setAngle(this.particle.direction);
   }

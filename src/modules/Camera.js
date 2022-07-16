@@ -1,4 +1,7 @@
 class Camera {
+  /**
+   * @param {SAT.Vector} pos - Origin (units).
+   */
   constructor(pos) {
     this.pos = pos;
   }
@@ -29,13 +32,33 @@ class Camera {
 
   /**
    * @param {Surface} surface
+   */
+  u2p(surface) {
+    this.pos = new SAT.V(
+      MG.Utils.u2p(this.pos.x, surface),
+      MG.Utils.u2p(this.pos.y, surface)
+    );
+  }
+
+  /**
+   * @param {Surface} surface
+   */
+  p2u(surface) {
+    this.pos = new SAT.V(
+      MG.Utils.p2u(this.pos.x, surface),
+      MG.Utils.p2u(this.pos.y, surface)
+    );
+  }
+
+  /**
+   * @param {Surface} surface
    * @param {Object} [center]
    * @param {boolean} [center.hasBorder]
    * @param {string} [center.borderWidth]
    * @param {string} [center.borderColor]
    * @param {number} [center.r]
    */
-  debugRender(surface, center = {}) {
+  render(surface, center = {}) {
     const c = {
       hasBorder:   center.hasBorder || false,
       borderWidth: center.borderWidth || 2,

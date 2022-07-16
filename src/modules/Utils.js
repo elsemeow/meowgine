@@ -134,7 +134,7 @@ class Utils {
   /**
    * Units to pixels.
    * @param {number} value
-   * @param {string} units Possible values: "vw", "vh", "vmin", "vmax".
+   * @param {string} units - Possible values: "vmin", "vmax".
    * @param {MG.Surface} surface
    */
   static u2p(value, surface) {
@@ -150,7 +150,7 @@ class Utils {
   /**
    * Pixels to units.
    * @param {number} value
-   * @param {string} units Possible values: "vw", "vh", "vmin", "vmax".
+   * @param {string} units - Possible values: "vmin", "vmax".
    * @param {MG.Surface} surface
    */
   static p2u(value, surface) {
@@ -204,17 +204,17 @@ class Utils {
   // -------------------------------------------------------------
 
   /**
-   * @param {Object} val
+   * @param {Object} value
    * @param {Object} target
    * @param {number} ease
    */
-  static ease(val, target, ease) {
-    const dv = target - val;
+  static ease(value, target, ease) {
+    const dv = target - value;
 
-    val += dv * ease;
+    value += dv * ease;
 
     if (Math.abs(dv) < 0.1) {
-      val = target;
+      value = target;
     }
   }
 

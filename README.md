@@ -1,19 +1,17 @@
-![MeowGine logo](logo.png)
-
-# MeowGine
+# ![MeowGine](docs/images/logo.png)
 
 Canvas-based game engine with relative scaling. Collision detection uses the [SAT.js](https://github.com/jriecken/sat-js) library.
 
 ## Classes
 
-- Utils;
-- Surface;
-- Entity:
-  - Particle;
-  - Sprite.
-- Background;
-- Tilemap;
-- Camera;
+- [Utils](docs/utils.md);
+- [Surface](docs/surface.md);
+- [Entity](docs/entity.md):
+  - [Particle](docs/particle.md);
+  - [Sprite](docs/sprite.md).
+- [Background](docs/background.md);
+- [Tilemap](docs/tilemap.md);
+- [Camera](docs/camera.md);
 
 ## Getting Started
 
@@ -66,7 +64,7 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
     //--------------------------------------------------------------------------
 
     room[0].background = new MG.Background({
-      src: "/images/background.png",
+      src: `${IMAGE_PATH}`,
       sW: 1920,
       sH: 1200,
       pos: new SAT.V(surface.w / 2, surface.h / 2),

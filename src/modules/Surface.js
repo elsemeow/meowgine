@@ -9,7 +9,7 @@ class Surface {
    * @param {string} selector
    * @param {number} viewWport
    * @param {number} viewHport
-   * @param {string} [units] Possible values: "vmin", "vmax".
+   * @param {string} [units] - Possible values: "vmin", "vmax".
    */
   constructor(selector, viewWport, viewHport, units = "vmin") {
     this.selector  = selector;
@@ -90,10 +90,10 @@ class Surface {
   }
 
   /**
-   * @param {string} val Possible values:
-   *                     `tl`: top left,    `tc`: top center,    `tr`: top right,
-   *                     `ml`: middle left, `mc`: middle center, `mr`: middle right,
-   *                     `bl`: bottom left, `bc`: bottom center, `br`: bottom right.
+   * @param {string} val - Possible values:
+   *                       `tl`: top left,    `tc`: top center,    `tr`: top right,
+   *                       `ml`: middle left, `mc`: middle center, `mr`: middle right,
+   *                       `bl`: bottom left, `bc`: bottom center, `br`: bottom right.
    */
   pos(val) {
     switch (val) {

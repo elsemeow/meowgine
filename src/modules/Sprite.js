@@ -13,19 +13,19 @@ class Sprite {
 
   /**
    * @param {Object} [options]
-   * @param {string} [options.img] Instance of image (e.g. image from another
-   *                               sprite or tilemap instance).
-   * @param {string} [options.src] Path to source.
-   * @param {number} [options.ix] Horizontal index.
-   * @param {number} [options.iy] Vertical index.
-   * @param {number} [options.sW] Source width (px).
-   * @param {number} [options.sH] Source height (px).
-   * @param {number} [options.dxS] Horizontal origin shift for current frame (units).
-   * @param {number} [options.dyS] Vertical origin shift for current frame (units).
-   * @param {number} [options.dW] Width of current frame (units).
-   * @param {number} [options.dH] Height of current frame (units).
-   * @param {number} [options.frames] Number of frames for current stripe (`iy`).
-   * @param {number} [options.speed] Animation speed in frames per second (fps).
+   * @param {string} [options.img] - Instance of image (e.g. image from another
+   *                                 sprite or tilemap instance).
+   * @param {string} [options.src] - Path to source.
+   * @param {number} [options.ix] - Horizontal index.
+   * @param {number} [options.iy] - Vertical index.
+   * @param {number} [options.sW] - Source width (px).
+   * @param {number} [options.sH] - Source height (px).
+   * @param {number} [options.dxS] - Horizontal origin shift for current frame (units).
+   * @param {number} [options.dyS] - Vertical origin shift for current frame (units).
+   * @param {number} [options.dW] - Width of current frame (units).
+   * @param {number} [options.dH] - Height of current frame (units).
+   * @param {number} [options.frames] - Number of frames for current stripe (`iy`).
+   * @param {number} [options.speed] - Animation speed in frames per second (fps).
    */
   constructor(options = {}) {
     let {
@@ -61,8 +61,7 @@ class Sprite {
   /**
    * @param {SAT.Circle|SAT.Polygon|SAT.Box} collision
    * @param {Surface} surface
-   * @param {number} angle Optional param (in rad),
-   *                       if collision have no it's own.
+   * @param {number} [angle] - In radians, if collision have no it's own.
    */
   render(collision, surface, angle = 0) {
     if (this.img.complete && this.img.naturalHeight !== 0) {
@@ -90,10 +89,10 @@ class Sprite {
         this.iy * this.sH,
         this.sW,
         this.sH,
-        collision.pos.x + MG.Utils.u2p(this.dxS, surface),
-        collision.pos.y + MG.Utils.u2p(this.dyS, surface),
-        MG.Utils.u2p(this.dW, surface),
-        MG.Utils.u2p(this.dH, surface)
+        collision.pos.x + this.dxS, surface,
+        collision.pos.y + this.dyS, surface,
+        this.dW,
+        this.dH
       );
 
       surface.ctx.restore();

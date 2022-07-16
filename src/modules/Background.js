@@ -1,15 +1,15 @@
 class Background {
   /**
    * @param {Object} [options]
-   * @param {string} [options.img] Instance of image.
-   * @param {string} [options.src] Path to source.
-   * @param {number} [options.sW] Source width (px).
-   * @param {number} [options.sH] Source height (px).
-   * @param {SAT.Vector} [options.pos] Origin (px).
-   * @param {number} [options.dW] Scaled width (units).
-   * @param {number} [options.dH] Scaled height (units).
-   * @param {number} [options.rows] Tilemap rows.
-   * @param {number} [options.columns] Tilemap columns.
+   * @param {string} [options.img] - Instance of image.
+   * @param {string} [options.src] - Path to source.
+   * @param {number} [options.sW] - Source width (px).
+   * @param {number} [options.sH] - Source height (px).
+   * @param {SAT.Vector} [options.pos] - Origin (units).
+   * @param {number} [options.dW] - Scaled width (units).
+   * @param {number} [options.dH] - Scaled height (units).
+   * @param {number} [options.rows] - Tilemap rows.
+   * @param {number} [options.columns] - Tilemap columns.
    * @param {number[]} [options.tilemap]
    */
   constructor(options = {}) {
@@ -45,6 +45,32 @@ class Background {
   /**
    * @param {Surface} surface
    */
+  u2p(surface) {
+    this.pos = new SAT.V(
+      MG.Utils.u2p(this.pos.x, surface),
+      MG.Utils.u2p(this.pos.y, surface)
+    );
+
+    this.dW = MG.Utils.u2p(this.dW, surface);
+    this.dH = MG.Utils.u2p(this.dH, surface);
+  }
+
+  /**
+   * @param {Surface} surface
+   */
+  p2u(surface) {
+    this.pos = new SAT.V(
+      MG.Utils.p2u(this.pos.x, surface),
+      MG.Utils.p2u(this.pos.y, surface)
+    );
+
+    this.dW = MG.Utils.p2u(this.dW, surface);
+    this.dH = MG.Utils.p2u(this.dH, surface);
+  }
+
+  /**
+   * @param {Surface} surface
+   */
   render(surface) {
     if (this.img.complete && this.img.naturalHeight !== 0) {
       surface.ctx.drawImage(
@@ -53,10 +79,10 @@ class Background {
         0,
         this.sW,
         this.sH,
-        this.pos.x - MG.Utils.u2p(this.dW / 2, surface),
-        this.pos.y - MG.Utils.u2p(this.dH / 2, surface),
-        MG.Utils.u2p(this.dW, surface),
-        MG.Utils.u2p(this.dH, surface)
+        this.pos.x - this.dW / 2,
+        this.pos.y - this.dH / 2,
+        this.dW,
+        this.dH
       );
     }
   }

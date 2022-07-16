@@ -3,7 +3,7 @@ class Particle {
 
   /**
    * @param {number} speed
-   * @param {number} direction Direction in radians.
+   * @param {number} direction - Direction in radians.
    * @param {Object} [options]
    * @param {number} [options.gravity]
    * @param {number} [options.mass]
@@ -46,7 +46,7 @@ class Particle {
   }
 
   /**
-   * @param {number} direction Direction in radians.
+   * @param {number} direction - Direction in radians.
    */
   set direction(direction) {
     this.vx = Math.cos(direction) * this.speed;
@@ -66,14 +66,17 @@ class Particle {
     this.vx *= this.friction;
     this.vy *= this.friction;
     this.vy += this.gravity;
-    this.#result = new SAT.V(MG.Utils.u2p(this.x + this.vx, surface), MG.Utils.u2p(this.y + this.vy, surface));
+    this.#result = new SAT.V(
+      MG.Utils.u2p(this.x + this.vx, surface),
+      MG.Utils.u2p(this.y + this.vy, surface)
+    );
 
     return this.#result;
   }
 
   /**
-   * @param {number} ax Acceleration along x axis.
-   * @param {number} ay Acceleration along y axis.
+   * @param {number} ax - Acceleration along x axis.
+   * @param {number} ay - Acceleration along y axis.
    */
   accelerate(ax, ay) {
     this.vx += ax;
@@ -108,7 +111,7 @@ class Particle {
    * @param {Object} p
    * @param {number} p.x
    * @param {number} p.y
-   * @param {number} k Factor of spring's stiffness.
+   * @param {number} k - Factor of spring's stiffness.
    * @param {number} length
    */
   addSpring(p, k, length) {
@@ -150,7 +153,7 @@ class Particle {
    * @param {Object} p
    * @param {number} p.x
    * @param {number} p.y
-   * @param {number} k Factor of spring's stiffness.
+   * @param {number} k - Factor of spring's stiffness.
    * @param {number} length
    */
   #springTo(p, k, length) {
