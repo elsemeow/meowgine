@@ -67,10 +67,17 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
       src: `${IMAGE_PATH}`,
       sW: 1920,
       sH: 1200,
-      pos: new SAT.V(surface.w / 2, surface.h / 2),
+      pos: surface.pos("mc"),
       dW: 192,
       dH: 120,
     });
+    
+    //
+    // Convert `vmin` or `vmax` units to `px`.
+    //
+    // Specified in the surface instance as the last optional parameter.
+    //
+    room[0].background.u2p(surface);
 
     room[0].entities[0] = new MG.Entity(
       "mc",
@@ -80,11 +87,6 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
       { name: "player" }
     );
 
-    //
-    // Convert `vmin` or `vmax` units to `px`.
-    //
-    // Specified in the surface instance as the last optional parameter.
-    //
     room[0].entities[0].u2p(surface);
 
     // Events
@@ -98,12 +100,14 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
         // Convert pixels back to units for recalculation
         // after resizing.
         //
+        room[0].background.p2u(surface);
         room[0].entities[0].p2u(surface);
 
         // 2. Resize.
         surface.resize();
 
         // 3. After resize.
+        room[0].background.u2p(surface);
         room[0].entities[0].u2p(surface);
       }, 500);
     };
