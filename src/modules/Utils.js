@@ -204,8 +204,8 @@ class Utils {
   // -------------------------------------------------------------
 
   /**
-   * @param {Object} value
-   * @param {Object} target
+   * @param {number} value
+   * @param {number} target
    * @param {number} ease
    */
   static ease(value, target, ease) {

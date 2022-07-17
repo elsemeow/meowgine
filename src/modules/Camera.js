@@ -52,25 +52,25 @@ class Camera {
 
   /**
    * @param {Surface} surface
-   * @param {Object} [center]
-   * @param {boolean} [center.hasBorder]
-   * @param {string} [center.borderWidth]
-   * @param {string} [center.borderColor]
-   * @param {number} [center.r]
+   * @param {Object} [origin]
+   * @param {boolean} [origin.hasBorder]
+   * @param {string} [origin.borderWidth]
+   * @param {string} [origin.borderColor]
+   * @param {number} [origin.r]
    */
-  render(surface, center = {}) {
-    const c = {
-      hasBorder:   center.hasBorder || false,
-      borderWidth: center.borderWidth || 2,
-      borderColor: center.borderColor || "rgb(255, 204, 92, 0.78)",
-      r:           center.r || 10,
+  render(surface, origin = {}) {
+    const o = {
+      hasBorder:   origin.hasBorder || false,
+      borderWidth: origin.borderWidth || 2,
+      borderColor: origin.borderColor || "rgba(255, 204, 92, 0.78)",
+      r:           origin.r || 10,
     };
 
-    if (c.hasBorder) {
-      p = new Path2D(MG.Utils.circleToPath(this.pos, c.r));
+    if (o.hasBorder) {
+      const p = new Path2D(MG.Utils.circleToPath(this.pos, o.r));
 
-      surface.ctx.lineWidth = c.borderWidth;
-      surface.ctx.strokeStyle = c.borderColor;
+      surface.ctx.lineWidth = o.borderWidth;
+      surface.ctx.strokeStyle = o.borderColor;
       surface.ctx.stroke(p);
     }
   }

@@ -70,8 +70,13 @@ class Background {
 
   /**
    * @param {Surface} surface
+   * @param {Object} [origin]
+   * @param {boolean} [origin.hasBorder]
+   * @param {string} [origin.borderWidth]
+   * @param {string} [origin.borderColor]
+   * @param {number} [origin.r]
    */
-  render(surface) {
+  render(surface, origin = {}) {
     if (this.img.complete && this.img.naturalHeight !== 0) {
       surface.ctx.drawImage(
         this.img,
@@ -84,6 +89,21 @@ class Background {
         this.dW,
         this.dH
       );
+    }
+
+    const o = {
+      hasBorder:   origin.hasBorder || false,
+      borderWidth: origin.borderWidth || 2,
+      borderColor: origin.borderColor || "rgba(173, 216, 230, 0.78)",
+      r:           origin.r || 6,
+    };
+
+    if (o.hasBorder) {
+      const p = new Path2D(MG.Utils.circleToPath(this.pos, o.r));
+
+      surface.ctx.lineWidth = o.borderWidth;
+      surface.ctx.strokeStyle = o.borderColor;
+      surface.ctx.stroke(p);
     }
   }
 }

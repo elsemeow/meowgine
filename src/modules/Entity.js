@@ -4,7 +4,7 @@ class Entity {
    *                          `tl`: top left,    `tc`: top center,    `tr`: top right,
    *                          `ml`: middle left, `mc`: middle center, `mr`: middle right,
    *                          `bl`: bottom left, `bc`: bottom center, `br`: bottom right.
-   * @param {SAT.Circle|SAT.Polygon|SAT.Polygon} collision
+   * @param {SAT.Circle|SAT.Polygon|SAT.Box} collision
    * @param {Particle} particle
    * @param {Sprite} sprite
    * @param {Object} vars
@@ -203,11 +203,6 @@ class Entity {
    */
   syncPos(surface) {
     this.collision.pos = this.particle.update(this.collision.pos, surface);
-  }
-
-  /** Synchronize angle of collision with direction of particle. */
-  syncDir() {
-    e.collision.setAngle(this.particle.direction);
   }
 
   /**

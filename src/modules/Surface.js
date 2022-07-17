@@ -80,8 +80,9 @@ class Surface {
     /** Is window aspect less than surface aspect? */
     const wLtS = wAsp < sAsp;
 
-    this.w = wLtS ? (wH * 100) / sAsp : wW;
-    this.h = wLtS ? wH : (wW * sAsp) / 100;
+    // The surface width or height can't be less than `300`px and wider than `8192`px.
+    this.w = MG.Utils.clamp(wLtS ? (wH * 100) / sAsp : wW, 300, 8192);
+    this.h = MG.Utils.clamp(wLtS ? wH : (wW * sAsp) / 100, 300, 8192);
   }
 
   /** Clear surface. */
@@ -107,15 +108,27 @@ class Surface {
       case "ml":
         return new SAT.V(0, MG.Utils.p2u(this.h / 2, this));
       case "mc":
-        return new SAT.V(MG.Utils.p2u(this.w / 2, this), MG.Utils.p2u(this.h / 2, this));
+        return new SAT.V(
+          MG.Utils.p2u(this.w / 2, this),
+          MG.Utils.p2u(this.h / 2, this)
+        );
       case "mr":
-        return new SAT.V(MG.Utils.p2u(this.w, this), MG.Utils.p2u(this.h / 2, this));
+        return new SAT.V(
+          MG.Utils.p2u(this.w, this),
+          MG.Utils.p2u(this.h / 2, this)
+        );
       case "bl":
         return new SAT.V(0, MG.Utils.p2u(this.h, this));
       case "bc":
-        return new SAT.V(MG.Utils.p2u(this.w / 2, this), MG.Utils.p2u(this.h, this));
+        return new SAT.V(
+          MG.Utils.p2u(this.w / 2, this),
+          MG.Utils.p2u(this.h, this)
+        );
       case "br":
-        return new SAT.V(MG.Utils.p2u(this.w, this), MG.Utils.p2u(this.h, this));
+        return new SAT.V(
+          MG.Utils.p2u(this.w, this),
+          MG.Utils.p2u(this.h, this)
+        );
     }
   }
 }

@@ -8,12 +8,11 @@ class Tilemap {
    * @param {number} [options.sC] - Source tiles columns.
    * @param {number} [options.sW] - Source width (px).
    * @param {number} [options.sH] - Source height (px).
-   * @param {number} [options.dx] - Start of top left corner x (units).
-   * @param {number} [options.dy] - Start of top left corner y (units).
+   * @param {SAT.Vector} [options.pos] - Top left corner start position (units).
    * @param {number} [options.dW] - Scaled width (units).
    * @param {number} [options.dH] - Scaled height (units).
    * @param {number} [options.rows] - Tilemap rows.
-   * @param {number} [options.columns] - Tilemap columns.
+   * @param {number} [options.cols] - Tilemap columns.
    * @param {number[]} [options.tilemap]
    */
   constructor(options = {}) {
@@ -24,8 +23,7 @@ class Tilemap {
       sC      = 0,
       sW      = 0,
       sH      = 0,
-      dx      = 0,
-      dy      = 0,
+      pos     = new SAT.V(),
       dW      = 0,
       dH      = 0,
       rows    = 0,
@@ -37,8 +35,7 @@ class Tilemap {
     this.sC      = sC;
     this.sW      = sW;
     this.sH      = sH;
-    this.dx      = dx;
-    this.dy      = dy;
+    this.pos     = pos;
     this.dW      = dW;
     this.dH      = dH;
     this.rows    = rows;
@@ -52,8 +49,11 @@ class Tilemap {
    * @param {Surface} surface
    */
   u2p(surface) {
-    this.dx = MG.Utils.u2p(this.dx, surface);
-    this.dy = MG.Utils.u2p(this.dy, surface);
+    this.pos = new SAT.V(
+      MG.Utils.u2p(this.pos.x, surface),
+      MG.Utils.u2p(this.pos.y, surface)
+    );
+
     this.dW = MG.Utils.u2p(this.dW, surface);
     this.dH = MG.Utils.u2p(this.dH, surface);
   }
@@ -62,8 +62,11 @@ class Tilemap {
    * @param {Surface} surface
    */
   p2u(surface) {
-    this.dx = MG.Utils.p2u(this.dx, surface);
-    this.dy = MG.Utils.p2u(this.dy, surface);
+    this.pos = new SAT.V(
+      MG.Utils.p2u(this.pos.x, surface),
+      MG.Utils.p2u(this.pos.y, surface)
+    );
+
     this.dW = MG.Utils.p2u(this.dW, surface);
     this.dH = MG.Utils.p2u(this.dH, surface);
   }
@@ -82,8 +85,8 @@ class Tilemap {
             Math.floor(this.tilemap[i] / this.sR) * this.sH,
             this.sW,
             this.sH,
-            this.dx + col * this.dW,
-            this.dy + row * this.dH,
+            this.pos.x + col * this.dW,
+            this.pos.y + row * this.dH,
             this.dW,
             this.dH
           );
