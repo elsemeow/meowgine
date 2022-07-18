@@ -1,6 +1,6 @@
 {
   "name": "meowgine",
-  "version": "2.2.1-alpha",
+  "version": "2.2.2-alpha",
   "description": "Canvas-based game engine with relative scaling",
   "main": "dist/meowgine.js",
   "scripts": {

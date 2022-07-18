@@ -1,16 +1,13 @@
 class Background {
   /**
    * @param {Object} [options]
-   * @param {string} [options.img] - Instance of image.
+   * @param {Image} [options.img] - Instance of image.
    * @param {string} [options.src] - Path to source.
    * @param {number} [options.sW] - Source width (px).
    * @param {number} [options.sH] - Source height (px).
    * @param {SAT.Vector} [options.pos] - Origin (units).
    * @param {number} [options.dW] - Scaled width (units).
    * @param {number} [options.dH] - Scaled height (units).
-   * @param {number} [options.rows] - Tilemap rows.
-   * @param {number} [options.columns] - Tilemap columns.
-   * @param {number[]} [options.tilemap]
    */
   constructor(options = {}) {
     let {
@@ -33,9 +30,7 @@ class Background {
   }
 
   /**
-   * @param {Object} target
-   * @param {number} target.x
-   * @param {number} target.y
+   * @param {SAT.Vector} target
    * @param {number} ease
    */
   pinTo(target, ease) {
@@ -43,7 +38,7 @@ class Background {
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    */
   u2p(surface) {
     this.pos = new SAT.V(
@@ -56,7 +51,7 @@ class Background {
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    */
   p2u(surface) {
     this.pos = new SAT.V(
@@ -69,7 +64,7 @@ class Background {
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    * @param {Object} [origin]
    * @param {boolean} [origin.hasBorder]
    * @param {string} [origin.borderWidth]

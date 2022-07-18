@@ -13,8 +13,8 @@ class Sprite {
 
   /**
    * @param {Object} [options]
-   * @param {string} [options.img] - Instance of image (e.g. image from another
-   *                                 sprite or tilemap instance).
+   * @param {Image} [options.img] - Instance of image (e.g. image from another
+   *                                sprite or tilemap instance).
    * @param {string} [options.src] - Path to source.
    * @param {number} [options.ix] - Horizontal index.
    * @param {number} [options.iy] - Vertical index.
@@ -60,7 +60,7 @@ class Sprite {
 
   /**
    * @param {SAT.Circle|SAT.Polygon|SAT.Box} collision
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    * @param {number} [angle] - In radians, if collision have no it's own.
    */
   render(collision, surface, angle = 0) {

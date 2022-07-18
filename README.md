@@ -7,8 +7,8 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
 - [Utils](docs/utils.md);
 - [Surface](docs/surface.md);
 - [Entity](docs/entity.md):
-  - [Particle](docs/particle.md);
-  - [Sprite](docs/sprite.md).
+  - Particle;
+  - Sprite.
 - [Background](docs/background.md);
 - [Tilemap](docs/tilemap.md);
 - [Camera](docs/camera.md);
@@ -27,11 +27,14 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
   //
   // Surface
   // |- Room 0
+  //    |- Camera 0
   //    |- Layer 0
   //       |- Background 0
-  //       |- Background 1
+  //    |- Layer 1
   //       |- Tilemap 0
+  //    |- Layer 2
   //       |- Tilemap 1
+  //    |- Layer 3
   //       |- Entity 0
   //       |- Entity 1
   //       |- Entity 2
@@ -71,7 +74,7 @@ Canvas-based game engine with relative scaling. Collision detection uses the [SA
       dW: 192,
       dH: 120,
     });
-    
+
     //
     // Convert `vmin` or `vmax` units to `px`.
     //

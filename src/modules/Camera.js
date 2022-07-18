@@ -7,23 +7,21 @@ class Camera {
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    */
   open(surface) {
     surface.ctx.translate(surface.w / 2 - this.pos.x, surface.h / 2 - this.pos.y);
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    */
   close(surface) {
     surface.ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 
   /**
-   * @param {Object} target
-   * @param {number} target.x
-   * @param {number} target.y
+   * @param {SAT.Vector} target
    * @param {number} ease
    */
   pinTo(target, ease) {
@@ -31,7 +29,7 @@ class Camera {
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    */
   u2p(surface) {
     this.pos = new SAT.V(
@@ -41,7 +39,7 @@ class Camera {
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    */
   p2u(surface) {
     this.pos = new SAT.V(
@@ -51,7 +49,7 @@ class Camera {
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    * @param {Object} [origin]
    * @param {boolean} [origin.hasBorder]
    * @param {string} [origin.borderWidth]

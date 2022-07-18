@@ -168,7 +168,7 @@ class Particle {
 
   /**
    * Create gravitation between two particles.
-   * @param {Particle} particle
+   * @param {MG.Particle} particle
    */
   addGravitation(particle) {
     this.removeGravitation(particle);
@@ -177,7 +177,7 @@ class Particle {
 
   /**
    * Remove gravitation between two particles.
-   * @param {Particle} particle
+   * @param {MG.Particle} particle
    */
   removeGravitation(particle) {
     for (let i = this.gravitations.length - 1; i >= 0; i--) {
@@ -198,7 +198,7 @@ class Particle {
 
   /**
    * Private method for gravitations handling.
-   * @param {Particle} particle
+   * @param {MG.Particle} particle
    */
   #gravitateTo(particle) {
     const dx = particle.x - this.x;

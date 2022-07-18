@@ -134,7 +134,6 @@ class Utils {
   /**
    * Units to pixels.
    * @param {number} value
-   * @param {string} units - Possible values: "vmin", "vmax".
    * @param {MG.Surface} surface
    */
   static u2p(value, surface) {
@@ -150,7 +149,6 @@ class Utils {
   /**
    * Pixels to units.
    * @param {number} value
-   * @param {string} units - Possible values: "vmin", "vmax".
    * @param {MG.Surface} surface
    */
   static p2u(value, surface) {

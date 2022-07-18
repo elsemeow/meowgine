@@ -5,8 +5,8 @@ class Entity {
    *                          `ml`: middle left, `mc`: middle center, `mr`: middle right,
    *                          `bl`: bottom left, `bc`: bottom center, `br`: bottom right.
    * @param {SAT.Circle|SAT.Polygon|SAT.Box} collision
-   * @param {Particle} particle
-   * @param {Sprite} sprite
+   * @param {MG.Particle} particle
+   * @param {MG.Sprite} sprite
    * @param {Object} vars
    */
   constructor(origin, collision, particle, sprite, vars = {}) {
@@ -108,7 +108,7 @@ class Entity {
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    */
   u2p(surface) {
     this.collision.pos = new SAT.V(
@@ -153,7 +153,7 @@ class Entity {
   }
 
   /**
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    */
   p2u(surface) {
     this.collision.pos = new SAT.V(
@@ -199,7 +199,7 @@ class Entity {
 
   /**
    * Synchronize position of collision with position of particle.
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    */
   syncPos(surface) {
     this.collision.pos = this.particle.update(this.collision.pos, surface);
@@ -207,7 +207,7 @@ class Entity {
 
   /**
    * Visualize collision geometry and origin point for debugging.
-   * @param {Surface} surface
+   * @param {MG.Surface} surface
    * @param {Object} [collision]
    * @param {boolean} [collision.hasFill]
    * @param {boolean} [collision.hasBorder]

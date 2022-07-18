@@ -48,20 +48,6 @@ class Surface {
     return this.el.height;
   }
 
-  /**
-   * @param {number} w
-   */
-  set w(w) {
-    this.#el.width = w;
-  }
-
-  /**
-   * @param {number} h
-   */
-  set h(h) {
-    this.#el.height = h;
-  }
-
   #init() {
     this.#el = document.querySelector(this.selector);
     this.resize();
@@ -81,8 +67,8 @@ class Surface {
     const wLtS = wAsp < sAsp;
 
     // The surface width or height can't be less than `300`px and wider than `8192`px.
-    this.w = MG.Utils.clamp(wLtS ? (wH * 100) / sAsp : wW, 300, 8192);
-    this.h = MG.Utils.clamp(wLtS ? wH : (wW * sAsp) / 100, 300, 8192);
+    this.#el.width  = MG.Utils.clamp(wLtS ? (wH * 100) / sAsp : wW, 300, 8192);
+    this.#el.height = MG.Utils.clamp(wLtS ? wH : (wW * sAsp) / 100, 300, 8192);
   }
 
   /** Clear surface. */

@@ -131,47 +131,70 @@ _The example below returns `90`._
 MG.Utils.radToDeg(Math.PI / 2);
 ```
 
+This method rounds the `value` to the specified precision (`places`).
+
+_The example below returns `0.009`._
+
 ```js
 /**
  * @param {number} value
  * @param {number} places
  */
-MG.Utils.roundToPlaces(value, places);
+MG.Utils.roundToPlaces(0.009333, 3);
 ```
+
+This method converts the given `value` in `surface` units ("vmin" or "vmax") to pixels.
 
 ```js
 /**
  * @param {number} value
- * @param {string} units - Possible values: "vmin", "vmax".
  * @param {MG.Surface} surface
  */
 MG.Utils.u2p(value, surface);
 ```
 
+This method converts the given `value` in pixels to `surface` units ("vmin" or "vmax").
+
 ```js
 /**
  * @param {number} value
- * @param {string} units - Possible values: "vmin", "vmax".
  * @param {MG.Surface} surface
  */
 MG.Utils.p2u(value, surface);
 ```
+
+This method returns a circle with the given parameters as an SVG Path string.
+
+_The example below returns `"M 10 10 m -5, 0 a 5,5 0 1,0 10,0 a 5,5 0 1,0 -10,0"`._
 
 ```js
 /**
  * @param {SAT.Vector} pos
  * @param {number} r
  */
-MG.Utils.circleToPath(pos, r);
+MG.Utils.circleToPath(new SAT.V(10, 10), 5);
 ```
+
+This method returns a polygon with the given parameters as an SVG Path string.
+
+_The example below returns `"M50 50M50 50L60 50L60 65L50 65Z"`._
 
 ```js
 /**
  * @param {SAT.Vector} pos
  * @param {SAT.Vector[]} points
  */
-MG.Utils.polygonToPath(pos, points);
+MG.Utils.polygonToPath(new SAT.V(50, 50), [
+  new SAT.V(),
+  new SAT.V(10, 0),
+  new SAT.V(10, 15),
+  new SAT.V(0, 15),
+]);
 ```
+
+This method returns a box (rectangle) with the given parameters as an SVG Path string.
+
+_The example below returns `"M30 30 h 10 v 20 h -10 Z"`._
 
 ```js
 /**
@@ -179,10 +202,12 @@ MG.Utils.polygonToPath(pos, points);
  * @param {number} w
  * @param {number} h
  */
-MG.Utils.boxToPath(pos, w, h);
+MG.Utils.boxToPath(new SAT.V(30, 30), 10, 20);
 ```
 
 ## Animations
+
+This method changes the given `value` to the `target` value with the given easing factor (`ease`).
 
 ```js
 /**
@@ -192,6 +217,8 @@ MG.Utils.boxToPath(pos, w, h);
  */
 MG.Utils.ease(value, target, ease);
 ```
+
+This method changes the given `position` to the `target` position with the given easing factor (`ease`).
 
 ```js
 /**
